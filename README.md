@@ -1,0 +1,2 @@
+# Aura-Home-An-Integrated-IoT-Framework-for-a-Cloud-based-Domestic-Automation-System-
+AuraHome is a cloud-based smart home automation system using LPC2148, ESP8266, Arduino IoT Cloud, and MQTT. It enables real-time control of four lighting devices through UART communication and displays live status on a 20×4 LCD with custom CGRAM bulb animations. Designed using Embedded C, Arduino IDE, and Keil IDE
