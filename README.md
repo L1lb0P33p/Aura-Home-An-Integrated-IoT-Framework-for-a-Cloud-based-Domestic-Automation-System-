@@ -45,12 +45,6 @@ AuraHome/
 │
 │── ESP8266/
 │   ├── AuraHome.ino
-│   └── thingProperties.h
-│
-│── Proteus/
-│   ├── AuraHome.pdsprj
-│   └── Circuit.dsn
-│
 └── README.md
 
  ⚙️ Working Principle
