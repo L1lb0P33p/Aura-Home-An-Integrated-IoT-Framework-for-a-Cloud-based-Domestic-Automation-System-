@@ -1,0 +1,85 @@
+#include "thingProperties.h"
+
+
+
+void setup()
+{
+  Serial.begin(9600);
+  Serial.begin(9600,SERIAL_8N1);
+  pinMode(2,OUTPUT);
+  delay(1500);
+
+  initProperties();
+
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+
+  setDebugMessageLevel(2);
+  ArduinoCloud.printDebugInfo();
+}
+
+void loop()
+{
+  ArduinoCloud.update();
+}
+
+/************************************************
+            BULB 1
+************************************************/
+void onBulb1Change()
+{
+  if(BULB1)
+  {
+    
+    Serial.write('A');      // Bulb1 ON
+  }
+  else
+  {
+    
+    Serial.write('a');      // Bulb1 OFF
+  }
+}
+
+/************************************************
+            BULB 2
+************************************************/
+void onBulb2Change()
+{
+  if(BULB2)
+  {
+    Serial.write('B');      // Bulb2 ON
+  }
+  else
+  {
+    Serial.write('b');      // Bulb2 OFF
+  }
+}
+
+/************************************************
+            BULB 3
+************************************************/
+void onBulb3Change()
+{
+  if(BULB3)
+  {
+    Serial.write('C');      // Bulb3 ON
+  }
+  else
+  {
+    Serial.write('c');      // Bulb3 OFF
+  }
+}
+
+/************************************************
+            BULB 4
+************************************************/
+void onBulb4Change()
+{
+  if(BULB4)
+  {
+    Serial.write('D');      // Bulb4 ON
+  }
+  else
+  {
+    Serial.write('d');      // Bulb4 OFF
+  }
+}
