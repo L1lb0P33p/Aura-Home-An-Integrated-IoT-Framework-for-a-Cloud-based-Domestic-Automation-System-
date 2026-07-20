@@ -14,7 +14,7 @@
 /* UART Configuration */
 void UART_CONFIG(void)
 {
-    PINSEL0 = 0x05;
+    PINSEL0 |= 0x05;
     U0LCR = 0x83;
     U0DLL = 97;
     U0DLM = 0;
@@ -116,14 +116,14 @@ void LCD_STR(unsigned char *s)
 }
 unsigned char BULB_SYMBOL[8]=
 {
-    0x04,
+    0x0E,
+    0x11,		 
+    0x11,
+    0x11,
     0x0E,
     0x0E,
-    0x1F,
-    0x1F,
-    0x04,
-    0x04,
-    0x00
+    0x0E,
+    0x04
 };
 
 void LCD_CREATE_BULB(void)
