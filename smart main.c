@@ -1,22 +1,22 @@
-#include "finalheader.h"
+#include "LCDHeadersmart.h"
 
 /* Add this function here */
 void LCD_SCROLL_TITLE(void)
 {
     unsigned int i, j;
     char title[] = "An Integrated IoT Framework for a Cloud-Based Domestic Automation System";
-    char buf[17];
+    char buf[21];
 
-    for(i = 0; i < sizeof(title) - 16; i++)
+    for(i = 0; i < sizeof(title) - 20; i++)
     {
         LCD_COMMAND(0x01);
         LCD_COMMAND(0x80);
 
-        for(j = 0; j < 16; j++)
+        for(j = 0; j < 20; j++)
         {
             buf[j] = title[i + j];
         }
-        buf[16] = '\0';
+        buf[20] = '\0';
 
         LCD_STR(buf);
         delay_milliseconds(100);
@@ -30,13 +30,13 @@ void LCD_SCROLL_TITLE(void)
     LCD_COMMAND(0xC0);
     LCD_STR("BULB do you");
 
-    LCD_COMMAND(0x90);
+    LCD_COMMAND(0x94);
     LCD_STR("want to turn");
 
-    LCD_COMMAND(0xD0);
+    LCD_COMMAND(0xD4);
     LCD_STR("ON / OFF");
 
-    delay_milliseconds(1000);
+    delay_milliseconds(500);
 }
 void LCD_BULB(void)
 {
@@ -45,22 +45,23 @@ void LCD_BULB(void)
     LCD_STR("BULB 1 :");
     LCD_COMMAND(0xC0);
     LCD_STR("BULB 2 :");
-    LCD_COMMAND(0x90);
+    LCD_COMMAND(0x94);
     LCD_STR("BULB 3 :");
-    LCD_COMMAND(0xD0);
+    LCD_COMMAND(0xD4);
     LCD_STR("BULB 4 :");
 }
 
 int main()
 {
     unsigned char rxbyte;
-
+	PINSEL0 |=0;
+	PINSEL1 |=0;
     IODIR0 |= BULB1 | BULB2 | BULB3 | BULB4;
     IOSET0 = BULB1 | BULB2 | BULB3 | BULB4;
     LCD_INIT();
-	  LCD_CREATE_BULB();
+	LCD_CREATE_BULB();
     /*Bulb Status Screen */
-		LCD_SCROLL_TITLE();
+	LCD_SCROLL_TITLE();
     LCD_BULB();
 
     UART_CONFIG();
@@ -72,7 +73,7 @@ while(1)
     /* BULB 1 */
     if(rxbyte == 'A')
     {
-        IOSET0 = BULB1;
+        IOCLR0 = BULB1;
         LCD_COMMAND(0x89);
         LCD_STR("ON ");
 
@@ -81,7 +82,7 @@ while(1)
     }
     else if(rxbyte == 'a')
     {
-        IOCLR0 = BULB1;
+        IOSET0 = BULB1;
         LCD_COMMAND(0x89);
         LCD_STR("OFF");
 
@@ -92,7 +93,7 @@ while(1)
     /* BULB 2 */
     else if(rxbyte == 'B')
     {
-        IOSET0 = BULB2;
+        IOCLR0 = BULB2;
         LCD_COMMAND(0xC9);
         LCD_STR("ON ");
 
@@ -101,7 +102,7 @@ while(1)
     }
     else if(rxbyte == 'b')
     {
-        IOCLR0 = BULB2;
+        IOSET0 = BULB2;
         LCD_COMMAND(0xC9);
         LCD_STR("OFF");
 
@@ -112,40 +113,40 @@ while(1)
     /* BULB 3 */
     else if(rxbyte == 'C')
     {
-        IOSET0 = BULB3;
-        LCD_COMMAND(0x99);      // Status position
+        IOCLR0 = BULB3;
+        LCD_COMMAND(0x9D);      // Status position
         LCD_STR("ON ");
 
-        LCD_COMMAND(0x9F);      // Last column of Line 3
+        LCD_COMMAND(0xA3);      // Last column of Line 3
         LCD_DATA(0);
     }
     else if(rxbyte == 'c')
     {
-        IOCLR0 = BULB3;
-        LCD_COMMAND(0x99);
+        IOSET0 = BULB3;
+        LCD_COMMAND(0x9D);
         LCD_STR("OFF");
 
-        LCD_COMMAND(0x9F);
+        LCD_COMMAND(0xA3);
         LCD_DATA(' ');
     }
 
     /* BULB 4 */
     else if(rxbyte == 'D')
     {
-        IOSET0 = BULB4;
-        LCD_COMMAND(0xD9);      // Status position
+        IOCLR0 = BULB4;
+        LCD_COMMAND(0xDD);      // Status position
         LCD_STR("ON ");
 
-        LCD_COMMAND(0xDF);      // Last column of Line 4
+        LCD_COMMAND(0xE3);      // Last column of Line 4
         LCD_DATA(0);
     }
     else if(rxbyte == 'd')
     {
-        IOCLR0 = BULB4;
-        LCD_COMMAND(0xD9);
+        IOSET0 = BULB4;
+        LCD_COMMAND(0xDD);
         LCD_STR("OFF");
 
-        LCD_COMMAND(0xDF);
+        LCD_COMMAND(0xE3);
         LCD_DATA(' ');
     }
 
